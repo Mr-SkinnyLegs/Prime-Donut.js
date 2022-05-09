@@ -1,10 +1,10 @@
 var pretag = document.getElementById("d");
-  
+var cOlOrS = false //more colors!!! change this to toggle background color change on/of
+
 var tmr1 = undefined,
   tmr2 = undefined;
 var A = 1,
   B = 1;
-
 var hue = 0
 
 function hsvToRgb(h, s, v) {
@@ -25,7 +25,7 @@ function hsvToRgb(h, s, v) {
     case 5: r = v, g = p, b = q; break;
   }
 
-  return [ r * 255, g * 255, b * 255 ];
+  return [ Math.round(r * 255), Math.round(g * 255), Math.round(b * 255) ];
 }
 
 function rgbToHex(r, g, b) {
@@ -35,6 +35,7 @@ function rgbToHex(r, g, b) {
 var asciiframe = () => {
   var colorrgb = hsvToRgb(hue, 1, 1)
   var colorhex = rgbToHex(colorrgb[0], colorrgb[1], colorrgb[2])
+  var inversecolorhex = rgbToHex(255-colorrgb[0], 255-colorrgb[1], 255-colorrgb[2])
   var b = [];
   var z = [];
   A += 0.07;
@@ -75,9 +76,12 @@ var asciiframe = () => {
       }
     }
   }
-  pretag.innerHTML = b.join("");
   document.getElementById("heheheha").style.color = colorhex
+  if (cOlOrS == true) {
+    document.getElementById("heheheha").style.backgroundColor = inversecolorhex;
+  }
   hue += 0.005
+  pretag.innerHTML = b.join("");
 };
 
-setInterval(asciiframe, 50);
+setInterval(asciiframe, 20)
